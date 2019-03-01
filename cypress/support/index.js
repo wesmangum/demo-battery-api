@@ -12,3 +12,11 @@
 // You can read more here:
 // https://on.cypress.io/configuration
 // ***********************************************************
+
+afterEach(() => {
+  cy.window().then(win => {
+    if (win.__coverage__) {
+      cy.task('coverage', win.__coverage__)
+    }
+  })
+})

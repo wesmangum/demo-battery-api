@@ -13,7 +13,8 @@
     "preinstrument": "npm run rm:build",
     "instrument": "nyc instrument src build/src",
     "cp": "cp src/*.css build/src && cp src/*.png build/src && cp index.html build",
-    "build": "npm run instrument && npm run cp"
+    "build": "npm run instrument && npm run cp",
+    "report:coverage": "nyc report --reporter=html"
   },
   "repository": {
     "type": "git",
@@ -31,6 +32,7 @@
     "browserify-istanbul": "3.0.1",
     "cypress": "3.1.5",
     "http-server": "0.11.1",
+    "istanbul-lib-coverage": "2.0.3",
     "nyc": "13.3.0",
     "start-server-and-test": "1.7.11"
   }
