@@ -13,6 +13,10 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 
+before(() => {
+  cy.task('resetCoverage')
+})
+
 afterEach(() => {
   cy.window().then(win => {
     if (win.__coverage__) {
