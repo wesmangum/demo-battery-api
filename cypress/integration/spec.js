@@ -24,7 +24,7 @@ describe('battery test', () => {
   })
 
   context('navigator.getBattery', () => {
-    it('shows battery status of 75%', function () {
+    it.only('shows battery status of 75%', function () {
       cy.visit('/', {
         onBeforeLoad (win) {
           delete win.navigator.battery
