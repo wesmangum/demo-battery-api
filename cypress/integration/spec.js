@@ -26,16 +26,11 @@ describe('battery test', () => {
     cy.server()
     cy.route({
       url: '/src/index.js',
-      response: r => {
-        // for now, these functions are sync
-        console.log('returning instrumented index.js')
-        // return Promise.resolve(instrumentedSrcIndex)
-        return instrumentedSrcIndex
-      }
+      response: () => instrumentedSrcIndex
     })
   }
 
-  it.only('shows battery status', function () {
+  it('shows battery status', function () {
     instrumentIndexJs()
     cy.visit('index.html')
     cy.get('.battery-percentage').should('be.visible')
