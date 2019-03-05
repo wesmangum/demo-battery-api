@@ -44,7 +44,7 @@ afterEach(() => {
   })
 })
 
-after(() => {
-  // Cypress.log('coverage report')
-  cy.coverageReport()
-})
+// after(() => {
+// Cypress.log('coverage report')
+// cy.coverageReport()
+// })

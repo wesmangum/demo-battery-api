@@ -2,14 +2,48 @@
 // https://on.cypress.io/intelligent-code-completion
 /// <reference types="Cypress" />
 
+const ws = new WebSocket('ws://localhost:8765')
+
+beforeEach(() => {
+  expect(ws.readyState).to.equal(WebSocket.OPEN)
+})
+
+// ws.send('from Cypress')
+// ws.on('message', function incoming (data) {
+//   console.log(data)
+// })
+
 describe('battery test', () => {
-  it('shows battery status', function () {
-    cy.visit('/')
+  let instrumentedSrcIndex
+
+  beforeEach(() => {
+    // instrument src/index.js static resource
+    cy.task('instrument', 'src/index.js').then(s => {
+      instrumentedSrcIndex = s
+    })
+  })
+  const instrumentIndexJs = () => {
+    cy.server()
+    cy.route({
+      url: '/src/index.js',
+      response: r => {
+        // for now, these functions are sync
+        console.log('returning instrumented index.js')
+        // return Promise.resolve(instrumentedSrcIndex)
+        return instrumentedSrcIndex
+      }
+    })
+  }
+
+  it.only('shows battery status', function () {
+    instrumentIndexJs()
+    cy.visit('index.html')
     cy.get('.battery-percentage').should('be.visible')
   })
 
   context('navigator.battery', () => {
     it('shows battery status of 50%', function () {
+      instrumentIndexJs()
       cy.visit('/', {
         onBeforeLoad (win) {
           win.navigator.battery = {
@@ -24,7 +58,8 @@ describe('battery test', () => {
   })
 
   context('navigator.getBattery', () => {
-    it.only('shows battery status of 75%', function () {
+    it('shows battery status of 75%', function () {
+      instrumentIndexJs()
       cy.visit('/', {
         onBeforeLoad (win) {
           delete win.navigator.battery
@@ -43,23 +78,23 @@ describe('battery test', () => {
     })
   })
 
-  // skipping because the app crashes when there is no battery set
-  context.skip('no battery', () => {
-    it('does not crash', () => {
-      cy.visit('/', {
-        onBeforeLoad (win) {
-          delete win.navigator.battery
+  // // skipping because the app crashes when there is no battery set
+  // context.skip('no battery', () => {
+  //   it('does not crash', () => {
+  //     cy.visit('/', {
+  //       onBeforeLoad (win) {
+  //         delete win.navigator.battery
 
-          // how to delete navigator.getBattery method?
-          // deleting does not work
-          // delete win.navigator.getBattery
+  //         // how to delete navigator.getBattery method?
+  //         // deleting does not work
+  //         // delete win.navigator.getBattery
 
-          // but we can just overwrite it with undefined!
-          Object.defineProperty(win.navigator, 'getBattery', {
-            value: undefined
-          })
-        }
-      })
-    })
-  })
+  //         // but we can just overwrite it with undefined!
+  //         Object.defineProperty(win.navigator, 'getBattery', {
+  //           value: undefined
+  //         })
+  //       }
+  //     })
+  //   })
+  // })
 })
