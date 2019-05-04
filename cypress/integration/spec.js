@@ -3,7 +3,7 @@
 /// <reference types="Cypress" />
 
 describe('battery test', () => {
-  it('shows battery status', function () {
+  it.only('shows battery status', function () {
     cy.visit('/')
     cy.get('.battery-percentage').should('be.visible')
   })
@@ -24,7 +24,7 @@ describe('battery test', () => {
   })
 
   context('navigator.getBattery', () => {
-    it.only('shows battery status of 75%', function () {
+    it('shows battery status of 75%', function () {
       cy.visit('/', {
         onBeforeLoad (win) {
           delete win.navigator.battery

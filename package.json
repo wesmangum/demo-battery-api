@@ -11,7 +11,7 @@
     "dev": "start-test 8080 cy:open",
     "clean": "rm -rf build .nyc_output || true",
     "preinstrument": "npm run clean",
-    "instrument": "nyc instrument src build/src",
+    "instrument": "nyc instrument --compact false src build/src",
     "cp": "cp src/*.css build/src && cp src/*.png build/src && cp index.html build",
     "build": "npm run instrument && npm run cp",
     "report:coverage": "nyc report --reporter=html"

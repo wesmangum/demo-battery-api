@@ -1,26 +1,34 @@
 const istanbul = require('istanbul-lib-coverage')
 const { join } = require('path')
-const { writeFileSync } = require('fs')
+const { existsSync, mkdirSync, writeFileSync } = require('fs')
 
 module.exports = (on, config) => {
   let coverageMap = istanbul.createCoverageMap({})
-  const nycFilename = join('.nyc_output', 'out.json')
-  const sourceFolder = config.env.sourceFolder || 'src'
-  console.log('support folder', sourceFolder)
+  const outputFolder = '.nyc_output'
+  const nycFilename = join(outputFolder, 'out.json')
+
+  if (!existsSync(outputFolder)) {
+    mkdirSync(outputFolder)
+    console.log('created folder %s for output coverage', outputFolder)
+  }
 
   on('task', {
+    /**
+     * Clears accumulated code coverage information
+     */
     resetCoverage () {
       coverageMap = istanbul.createCoverageMap({})
+      console.log('reset code coverage')
       return null
     },
 
+    /**
+     * Writes combined coverage JSON file
+     */
     coverage (coverage) {
-      console.log('adding more coverage')
-      Object.keys(coverage).forEach(entry => {
-        coverage[entry].path = join(sourceFolder, coverage[entry].path)
-      })
       coverageMap.merge(coverage)
       writeFileSync(nycFilename, JSON.stringify(coverageMap, null, 2))
+      console.log('wrote coverage file %s', nycFilename)
       return null
     }
   })
