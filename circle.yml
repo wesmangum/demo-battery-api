@@ -8,3 +8,6 @@ workflows:
       - cypress/run:
           start: npm start
           no-workspace: true
+          post-steps:
+            - store_artifacts:
+                path: coverage
