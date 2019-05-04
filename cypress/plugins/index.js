@@ -1,6 +1,7 @@
 const istanbul = require('istanbul-lib-coverage')
 const { join } = require('path')
 const { existsSync, mkdirSync, writeFileSync } = require('fs')
+const execa = require('execa')
 
 module.exports = (on, config) => {
   let coverageMap = istanbul.createCoverageMap({})
@@ -23,13 +24,23 @@ module.exports = (on, config) => {
     },
 
     /**
-     * Writes combined coverage JSON file
+     * Combines coverage information from single test
+     * with previously collected coverage.
      */
-    coverage (coverage) {
+    combineCoverage (coverage) {
       coverageMap.merge(coverage)
+      return null
+    },
+
+    /**
+     * Saves coverage information as a JSON file and calls
+     * NPM script to generate HTML report
+     */
+    coverageReport () {
       writeFileSync(nycFilename, JSON.stringify(coverageMap, null, 2))
       console.log('wrote coverage file %s', nycFilename)
-      return null
+      console.log('saving coverage report')
+      return execa('npm', ['run', 'report:coverage'], { stdio: 'inherit' })
     }
   })
 }
