@@ -28,8 +28,6 @@ module.exports = (on, config) => {
       if (isInteractive) {
         console.log('reset code coverage in interactive mode')
         const coverageMap = istanbul.createCoverageMap({})
-        console.log('coverage map')
-        console.log(coverageMap)
         writeFileSync(nycFilename, JSON.stringify(coverageMap, null, 2))
       }
       /*
