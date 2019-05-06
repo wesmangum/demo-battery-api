@@ -65,12 +65,14 @@
   }
 
   window.onload = function () {
-    battery.addEventListener('chargingchange', function () {
-      readBattery()
-    })
+    if (battery) {
+      battery.addEventListener('chargingchange', function () {
+        readBattery()
+      })
 
-    battery.addEventListener('levelchange', function () {
-      readBattery()
-    })
+      battery.addEventListener('levelchange', function () {
+        readBattery()
+      })
+    }
   }
 })()

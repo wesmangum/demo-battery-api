@@ -44,7 +44,7 @@ describe('battery test', () => {
   })
 
   // skipping because the app crashes when there is no battery set
-  context.skip('no battery', () => {
+  context('no battery', () => {
     it('does not crash', () => {
       cy.visit('/', {
         onBeforeLoad (win) {
@@ -60,6 +60,8 @@ describe('battery test', () => {
           })
         }
       })
+
+      cy.get('.not-support').should('be.visible')
     })
   })
 })
