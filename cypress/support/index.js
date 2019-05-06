@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 before(() => {
-  cy.task('resetCoverage')
+  cy.task('resetCoverage', { isInteractive: Cypress.config('isInteractive') })
 })
 
 afterEach(() => {

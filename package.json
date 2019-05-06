@@ -6,6 +6,8 @@
   "scripts": {
     "test": "cypress run",
     "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "precy:run": "rm -rf .nyc_output || true",
     "start": "http-server -c-1 -p 8080 build",
     "prestart": "npm run build",
     "dev": "start-test 8080 cy:open",

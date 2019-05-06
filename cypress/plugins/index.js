@@ -4,23 +4,40 @@ const { existsSync, mkdirSync, readFileSync, writeFileSync } = require('fs')
 const execa = require('execa')
 
 module.exports = (on, config) => {
-  // let coverageMap = istanbul.createCoverageMap({})
+  // these are standard folder and file names used by NYC tools
   const outputFolder = '.nyc_output'
-  const nycFilename = join(process.cwd(), outputFolder, 'out.json')
+  const coverageFolder = join(process.cwd(), outputFolder)
+  const nycFilename = join(coverageFolder, 'out.json')
 
-  if (!existsSync(outputFolder)) {
-    mkdirSync(outputFolder)
-    console.log('created folder %s for output coverage', outputFolder)
+  if (!existsSync(coverageFolder)) {
+    mkdirSync(coverageFolder)
+    console.log('created folder %s for output coverage', coverageFolder)
   }
 
   on('task', {
     /**
-     * Clears accumulated code coverage information
+     * Clears accumulated code coverage information.
+     *
+     * Interactive mode with "cypress open"
+     *    - running a single spec or "Run all specs" needs to reset coverage
+     * Headless mode with "cypress run"
+     *    - runs EACH spec separately, so we cannot reset the coverage
+     *      or we will lose the coverage from previous specs.
      */
-    resetCoverage () {
-      console.log('reset code coverage')
-      const coverageMap = istanbul.createCoverageMap({})
-      writeFileSync(nycFilename, JSON.stringify(coverageMap, null, 2))
+    resetCoverage ({ isInteractive }) {
+      if (isInteractive) {
+        console.log('reset code coverage in interactive mode')
+        const coverageMap = istanbul.createCoverageMap({})
+        console.log('coverage map')
+        console.log(coverageMap)
+        writeFileSync(nycFilename, JSON.stringify(coverageMap, null, 2))
+      }
+      /*
+        Else:
+          in headless mode, assume the coverage file was deleted
+          before the `cypress run` command was called
+          example: rm -rf .nyc_output || true
+      */
 
       return null
     },
@@ -30,7 +47,9 @@ module.exports = (on, config) => {
      * with previously collected coverage.
      */
     combineCoverage (coverage) {
-      const previous = JSON.parse(readFileSync(nycFilename))
+      const previous = existsSync(nycFilename)
+        ? JSON.parse(readFileSync(nycFilename))
+        : istanbul.createCoverageMap({})
       const coverageMap = istanbul.createCoverageMap(previous)
       coverageMap.merge(coverage)
       writeFileSync(nycFilename, JSON.stringify(coverageMap, null, 2))
@@ -44,8 +63,6 @@ module.exports = (on, config) => {
      * NPM script to generate HTML report
      */
     coverageReport () {
-      // writeFileSync(nycFilename, JSON.stringify(coverageMap, null, 2))
-      // console.log('wrote coverage file %s', nycFilename)
       console.log('saving coverage report')
       return execa('npm', ['run', 'report:coverage'], { stdio: 'inherit' })
     }
