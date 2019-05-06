@@ -28,4 +28,22 @@ context('navigator.battery', () => {
     // and has enough juice for 1 hour
     cy.contains('.battery-remaining', '1:00').should('be.visible')
   })
+
+  it('shows charging status', () => {
+    cy.visit('/', {
+      onBeforeLoad (win) {
+        // mock "navigator.battery" property
+        // returning mock charge object
+        win.navigator.battery = {
+          level: 0.5,
+          charging: true,
+          chargingTime: Infinity,
+          dischargingTime: 3600, // seconds
+          addEventListener: () => {}
+        }
+      }
+    })
+
+    cy.contains('.battery-fully', 'Calculating...').should('be.visible')
+  })
 })
