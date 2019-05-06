@@ -1,12 +1,12 @@
 const istanbul = require('istanbul-lib-coverage')
 const { join } = require('path')
-const { existsSync, mkdirSync, writeFileSync } = require('fs')
+const { existsSync, mkdirSync, readFileSync, writeFileSync } = require('fs')
 const execa = require('execa')
 
 module.exports = (on, config) => {
-  let coverageMap = istanbul.createCoverageMap({})
+  // let coverageMap = istanbul.createCoverageMap({})
   const outputFolder = '.nyc_output'
-  const nycFilename = join(outputFolder, 'out.json')
+  const nycFilename = join(process.cwd(), outputFolder, 'out.json')
 
   if (!existsSync(outputFolder)) {
     mkdirSync(outputFolder)
@@ -18,8 +18,10 @@ module.exports = (on, config) => {
      * Clears accumulated code coverage information
      */
     resetCoverage () {
-      coverageMap = istanbul.createCoverageMap({})
       console.log('reset code coverage')
+      const coverageMap = istanbul.createCoverageMap({})
+      writeFileSync(nycFilename, JSON.stringify(coverageMap, null, 2))
+
       return null
     },
 
@@ -28,7 +30,12 @@ module.exports = (on, config) => {
      * with previously collected coverage.
      */
     combineCoverage (coverage) {
+      const previous = JSON.parse(readFileSync(nycFilename))
+      const coverageMap = istanbul.createCoverageMap(previous)
       coverageMap.merge(coverage)
+      writeFileSync(nycFilename, JSON.stringify(coverageMap, null, 2))
+      console.log('wrote coverage file %s', nycFilename)
+
       return null
     },
 
@@ -37,8 +44,8 @@ module.exports = (on, config) => {
      * NPM script to generate HTML report
      */
     coverageReport () {
-      writeFileSync(nycFilename, JSON.stringify(coverageMap, null, 2))
-      console.log('wrote coverage file %s', nycFilename)
+      // writeFileSync(nycFilename, JSON.stringify(coverageMap, null, 2))
+      // console.log('wrote coverage file %s', nycFilename)
       console.log('saving coverage report')
       return execa('npm', ['run', 'report:coverage'], { stdio: 'inherit' })
     }
