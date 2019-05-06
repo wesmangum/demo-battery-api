@@ -1,5 +1,8 @@
 /// <reference types="cypress" />
 before(() => {
+  // we need to reset the coverage when running
+  // in the interactive mode, otherwise the counters will
+  // keep increasing every time we rerun the tests
   cy.task('resetCoverage', { isInteractive: Cypress.config('isInteractive') })
 })
 
@@ -15,5 +18,6 @@ afterEach(() => {
 })
 
 after(() => {
+  // when all tests finish, lets generate the coverage report
   cy.task('coverageReport')
 })
