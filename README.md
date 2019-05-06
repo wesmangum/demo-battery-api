@@ -21,3 +21,8 @@ Instrumented code from `src` folder will be placed in `build` folder and servers
 Click on the `index.html` to open the static site, for example here is the start of the `index.js` file
 
 ![Index.js coverage](images/index-js-report.png)
+
+## Read
+
+- [Stub navigator API in end-to-end tests](https://glebbahmutov.com/blog/stub-navigator-api/)
+- [Code Coverage for End-to-end Tests](https://glebbahmutov.com/blog/code-coverage-for-e2e-tests/)
