@@ -1,4 +1,4 @@
-import { batteryStats } from './utils'
+import { batteryStats } from './utils.ts'
 import { renderStats } from './dom-utils'
 
 var battery

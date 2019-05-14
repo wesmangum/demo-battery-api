@@ -1,18 +1,13 @@
-export function toTime (sec) {
-  sec = parseInt(sec, 10)
-  var hours = Math.floor(sec / 3600)
-  var minutes = Math.floor((sec - hours * 3600) / 60)
-  var seconds = sec - hours * 3600 - minutes * 60
-  if (hours < 10) {
-    hours = '0' + hours
-  }
-  if (minutes < 10) {
-    minutes = '0' + minutes
-  }
-  if (seconds < 10) {
-    seconds = '0' + seconds
-  }
-  return hours + ':' + minutes
+export function toTime (secondsStr: string): string {
+  const sec = parseInt(secondsStr, 10)
+  const hours = Math.floor(sec / 3600)
+  const minutes = Math.floor((sec - hours * 3600) / 60)
+
+  const hoursLabel:string = hours < 10 ? '0' + hours : String(hours)
+
+  const minutesLabel: string = minutes < 10 ? '0' + minutes : String(minutes)
+
+  return hoursLabel + ':' + minutesLabel
 }
 
 export function batteryStats (battery) {
