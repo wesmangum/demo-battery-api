@@ -29,8 +29,14 @@ spec | description
 
 ## Read
 
-- [Stub navigator API in end-to-end tests](https://glebbahmutov.com/blog/stub-navigator-api/)
-- [Code Coverage for End-to-end Tests](https://glebbahmutov.com/blog/code-coverage-for-e2e-tests/) (see branch [coverage-step](https://github.com/bahmutov/demo-battery-api/tree/coverage-step) for the source code)
+Read the following blog posts and check out the corresponding source code:
+
+Blog post | Source branch name
+--- | ---
+[Stub navigator API in end-to-end tests](https://glebbahmutov.com/blog/stub-navigator-api/) | [master](https://github.com/bahmutov/demo-battery-api/tree/master)
+[Code Coverage for End-to-end Tests](https://glebbahmutov.com/blog/code-coverage-for-e2e-tests/) | [coverage-step](https://github.com/bahmutov/demo-battery-api/tree/coverage-step)
+[Code Coverage by Parcel Bundler](https://glebbahmutov.com/blog/code-coverage-by-parcel/) | [bundle](https://github.com/bahmutov/demo-battery-api/tree/bundle)
+[Combined End-to-end and Unit Test Coverage](https://glebbahmutov.com/blog/combined-end-to-end-and-unit-test-coverage/) | [cover-unit-tests-3](https://github.com/bahmutov/demo-battery-api/tree/cover-unit-tests-3)
 
 [renovate-badge]: https://img.shields.io/badge/renovate-app-blue.svg
 [renovate-app]: https://renovateapp.com/
