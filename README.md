@@ -1,4 +1,4 @@
-# Cypress tests for Battery Status API [![CircleCI](https://circleci.com/gh/bahmutov/demo-battery-api.svg?style=svg)](https://circleci.com/gh/bahmutov/demo-battery-api) [![renovate-app badge][renovate-badge]][renovate-app] [![Coverage Status](https://coveralls.io/repos/github/bahmutov/demo-battery-api/badge.svg?branch=bundle)](https://coveralls.io/github/bahmutov/demo-battery-api?branch=bundle)
+# Cypress tests for Battery Status API [![CircleCI](https://circleci.com/gh/bahmutov/demo-battery-api.svg?style=svg)](https://circleci.com/gh/bahmutov/demo-battery-api) [![renovate-app badge][renovate-badge]][renovate-app] [![Coverage Status](https://coveralls.io/repos/github/bahmutov/demo-battery-api/badge.svg?branch=bundle)](https://coveralls.io/github/bahmutov/demo-battery-api?branch=bundle) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/167b55dbb4a9476aa41bee10b049c5b3)](https://www.codacy.com/app/glebbahmutov_2600/demo-battery-api)
 
 > Forked from [https://github.com/pazguille/demo-battery-api](https://github.com/pazguille/demo-battery-api) with its demo at [http://pazguille.github.io/demo-battery-api/](http://pazguille.github.io/demo-battery-api/)
 
