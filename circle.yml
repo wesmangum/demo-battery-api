@@ -6,6 +6,8 @@ workflows:
   build:
     jobs:
       - cypress/run:
+          # make sure the linter passes
+          build: npm run lint
           # we need to start the web application
           start: npm start
           # there are no jobs to follow this one
