@@ -7,7 +7,10 @@ context('navigator.getBattery updates', () => {
     let appListener
     const updateBattery = cy
       .stub()
-      .callsFake((e, fn) => (appListener = fn))
+      .callsFake((e, fn) => {
+        appListener = fn
+        return null
+      })
       .as('update')
     const mockBatteryInfo = {
       level: 0.3,

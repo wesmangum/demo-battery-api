@@ -10,7 +10,8 @@
     "dev": "start-test 1234 cy:open",
     "report:coverage": "nyc report --reporter=html",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
-    "codacy": "nyc report --reporter=text-lcov | codacy-coverage"
+    "codacy": "nyc report --reporter=text-lcov | codacy-coverage",
+    "lint": "eslint --fix cypress src"
   },
   "repository": {
     "type": "git",
@@ -31,6 +32,7 @@
     "coveralls": "3.0.3",
     "cypress": "3.3.0",
     "cypress-istanbul": "1.1.0",
+    "eslint": "5.16.0",
     "eslint-plugin-cypress": "2.2.1",
     "http-server": "0.11.1",
     "istanbul-lib-coverage": "2.0.5",

@@ -4,5 +4,17 @@
   ],
   "env": {
     "cypress/globals": true
+  },
+  "rules": {
+    "capitalized-comments": "off",
+    "multiline-comment-style": "off",
+    "dot-location": "off",
+    "prefer-reflect": "off",
+    "quote-props": "off",
+    "spaced-comment": "off",
+    "max-lines-per-function": "off",
+    "line-comment-position": "off",
+    "no-inline-comments": "off",
+    "no-empty-function": "off"
   }
 }

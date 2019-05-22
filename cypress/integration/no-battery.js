@@ -36,6 +36,7 @@ context('no battery', () => {
         // deleting does not work
         // but we can just overwrite it with undefined!
         Object.defineProperty(win.navigator, 'getBattery', {
+          // eslint-disable-next-line no-undefined
           value: undefined
         })
       }
@@ -75,6 +76,7 @@ context('no battery', () => {
 
         // but we can just overwrite it with undefined!
         Object.defineProperty(win.navigator, 'getBattery', {
+          // eslint-disable-next-line no-undefined
           value: undefined
         })
       }
