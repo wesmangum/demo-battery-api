@@ -9,7 +9,7 @@ Branch [coverage-step](https://github.com/wemangum/demo-battery-api/tree/coverag
 ## Use
 
 ```
-git clone git@github.com:bahmutov/demo-battery-api.git
+git clone git@github.com:wesmangum/demo-battery-api.git
 cd demo-battery-api
 git checkout coverage-step
 npm install

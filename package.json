@@ -20,15 +20,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bahmutov/demo-battery-api.git"
+    "url": "git+https://github.com/wesmangum/demo-battery-api.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/bahmutov/demo-battery-api/issues"
+    "url": "https://github.com/wesmangum/demo-battery-api/issues"
   },
-  "homepage": "https://github.com/bahmutov/demo-battery-api#readme",
+  "homepage": "https://github.com/wesmangum/demo-battery-api#readme",
   "devDependencies": {
     "cypress": "3.2.0",
     "execa": "1.0.0",
